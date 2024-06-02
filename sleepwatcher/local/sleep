@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "$(date): sleeping" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-event.log
+/home/caleb/dev/personal/smarthome/sleepwatcher/local/power-event-script pre

@@ -1,0 +1,10 @@
+[Unit]
+Description=Run script on sleep
+Before=sleep.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/caleb/dev/personal/smarthome/local/sleep-test
+
+[Install]
+WantedBy=sleep.target

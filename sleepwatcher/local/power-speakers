@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# echo "$(date): Script executed with argument: $1" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-speakers.log
+case "$1" in
+  on)
+    echo "$(date): Powering the speakers on" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-speakers.log
+    curl \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2Y2Q2M2RkYWViODA0ZDhiYWE3NmY0MThmOGVlNjY0MSIsImlhdCI6MTcxNjA1OTU1NiwiZXhwIjoyMDMxNDE5NTU2fQ.Z5xQq-ObkzdTptoFk6F-0Yg4zVp7BRiKt2VAcUljMuM" \
+      -H "Content-type: application/json" \
+      -d '{"entity_id": "switch.speakers_all"}' \
+      http://192.168.0.45:8123/api/services/switch/turn_on
+    ;;
+  off)
+    echo "$(date): Powering the speakers off" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-speakers.log
+    curl \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2Y2Q2M2RkYWViODA0ZDhiYWE3NmY0MThmOGVlNjY0MSIsImlhdCI6MTcxNjA1OTU1NiwiZXhwIjoyMDMxNDE5NTU2fQ.Z5xQq-ObkzdTptoFk6F-0Yg4zVp7BRiKt2VAcUljMuM" \
+      -H "Content-type: application/json" \
+      -d '{"entity_id": "switch.speakers_all"}' \
+      http://192.168.0.45:8123/api/services/switch/turn_off
+    ;;
+  *)
+    echo "$(date): unknown event: $1" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-speakers.log
+    ;;
+esac
+

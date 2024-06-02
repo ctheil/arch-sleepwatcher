@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "$(date): Script executed with argument: $1" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-event.log
+case "$1" in
+  pre)
+    echo "$(date): the machine is preparing the suspen/hibernate/sleep" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-event.log
+    curl \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2Y2Q2M2RkYWViODA0ZDhiYWE3NmY0MThmOGVlNjY0MSIsImlhdCI6MTcxNjA1OTU1NiwiZXhwIjoyMDMxNDE5NTU2fQ.Z5xQq-ObkzdTptoFk6F-0Yg4zVp7BRiKt2VAcUljMuM" \
+      -H "Content-type: application/json" \
+      -d '{"state": "on"}' \
+      http://192.168.0.45:8123/api/states/input_boolean.arch_sleep_state
+    ;;
+  post)
+    echo "$(date): the machine has resumes/wokenup" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-event.log
+    curl \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2Y2Q2M2RkYWViODA0ZDhiYWE3NmY0MThmOGVlNjY0MSIsImlhdCI6MTcxNjA1OTU1NiwiZXhwIjoyMDMxNDE5NTU2fQ.Z5xQq-ObkzdTptoFk6F-0Yg4zVp7BRiKt2VAcUljMuM" \
+      -H "Content-type: application/json" \
+      -d '{"state": "off"}' \
+      http://192.168.0.45:8123/api/states/input_boolean.arch_sleep_state
+    ;;
+  shutdown)
+    echo "$(date): the machine is shutting down" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-event.log
+    curl \
+      -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiI2Y2Q2M2RkYWViODA0ZDhiYWE3NmY0MThmOGVlNjY0MSIsImlhdCI6MTcxNjA1OTU1NiwiZXhwIjoyMDMxNDE5NTU2fQ.Z5xQq-ObkzdTptoFk6F-0Yg4zVp7BRiKt2VAcUljMuM" \
+      -H "Content-type: application/json" \
+      -d '{"state": "on"}' \
+      http://192.168.0.45:8123/api/states/input_boolean.arch_sleep_state
+    ;;
+  *)
+    echo "$(date): unknown event: $1" >> /home/caleb/dev/personal/smarthome/sleepwatcher/logs/power-event.log
+    ;;
+esac
+
